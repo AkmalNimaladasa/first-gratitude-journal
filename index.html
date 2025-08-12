@@ -1,22 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gratitude Journal</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gratitude Journal — Barakah Minimal</title>
+  <meta name="description" content="A private, minimalist gratitude journal that saves locally in your browser.">
+  <meta name="theme-color" content="#E1164A" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>My Gratitude Journal</h1>
-    
-    <textarea id="entryInput" placeholder="What are you grateful for today?"></textarea>
-    <button id="saveButton">Save Entry</button>
-    
-    <h2>Previous Entries</h2>
-    <ul id="entriesList"></ul>
+  <div class="wrap">
+    <header class="header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Gratitude Journal</h1>
+          <p class="sub">Private. Minimal. Stored only on your device.</p>
+        </div>
+      </div>
+      <div class="pills">
+        <span class="pill">Today: <strong id="today"></strong></span>
+        <span class="pill">Streak: <strong id="streak">0</strong> days</span>
+        <span class="pill">Tip: <span class="kbd">Ctrl</span> + <span class="kbd">S</span> to save</span>
+      </div>
+    </header>
 
-    <button id="clearAllButton">Delete All Entries</button>
+    <main class="grid">
+      <!-- Editor -->
+      <section class="card" aria-labelledby="editor-h">
+        <div class="hd">
+          <h2 id="editor-h">New Entry</h2>
+          <div id="prompt" class="muted"></div>
+        </div>
+        <div class="bd">
+          <label for="date">Date</label>
+          <input id="date" type="date" />
+
+          <div class="row">
+            <div>
+              <label for="g1">1) I am grateful for…</label>
+              <input id="g1" placeholder="A blessing or moment" />
+            </div>
+            <div>
+              <label for="g2">2) I am grateful for…</label>
+              <input id="g2" placeholder="Another blessing" />
+            </div>
+            <div>
+              <label for="g3">3) I am grateful for…</label>
+              <input id="g3" placeholder="Something overlooked" />
+            </div>
+          </div>
+
+          <label for="notes">Reflection (optional)</label>
+          <textarea id="notes" placeholder="Thoughts or du‘ā (Q 14:7)…"></textarea>
+
+          <div class="row">
+            <div>
+              <label for="mood">Mood</label>
+              <select id="mood">
+                <option value="😊">😊 Positive</option>
+                <option value="😌">😌 Calm</option>
+                <option value="😐">😐 Neutral</option>
+                <option value="😔">😔 Low</option>
+                <option value="🔥">🔥 Energized</option>
+              </select>
+            </div>
+            <div>
+              <label for="tags">Tags (comma separated)</label>
+              <input id="tags" placeholder="family, study, health" />
+            </div>
+            <div>
+              <label for="feel">Feeling word</label>
+              <input id="feel" placeholder="grateful, hopeful, patient" />
+            </div>
+          </div>
+
+          <div class="btns">
+            <button id="saveBtn" class="btn primary">Save entry</button>
+            <button id="clearBtn" class="btn subtle">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Library -->
+      <section class="card" aria-labelledby="lib-h">
+        <div class="hd">
+          <h2 id="lib-h">Your Entries</h2>
+          <div class="muted" id="count">0 entries</div>
+        </div>
+        <div class="bd">
+          <label for="q">Search</label>
+          <input id="q" placeholder="Search text, tags, mood, or feeling…" />
+
+          <div class="row">
+            <div>
+              <label for="from">From</label>
+              <input id="from" type="date" />
+            </div>
+            <div>
+              <label for="to">To</label>
+              <input id="to" type="date" />
+            </div>
+            <div class="align-end">
+              <button id="filterBtn" class="btn">Filter</button>
+              <button id="resetBtn" class="btn subtle">Reset</button>
+            </div>
+          </div>
+
+          <div class="btns smallgap">
+            <button id="exportJson" class="btn subtle">Export JSON</button>
+            <button id="exportCsv" class="btn subtle">Export CSV</button>
+
+            <label for="importFile" class="btn subtle outline">Import JSON</label>
+            <input id="importFile" type="file" accept=".json" class="hidden" />
+          </div>
+
+          <div id="list" class="list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div>💾 Data stays in <strong>localStorage</strong> on this device only. Clear site data to wipe.</div>
+      <div>“If you are grateful, I will surely increase you.” — <em>Qur’an 14:7</em></div>
+    </footer>
   </div>
 
   <script src="script.js"></script>
